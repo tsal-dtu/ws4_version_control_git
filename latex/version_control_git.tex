@@ -1,0 +1,93 @@
+%\documentclass[10pt,a4paper,final]{article}
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%\usepackage[pdftex]{hyperref}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\usepackage{color}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+%    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+%    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+
+\title{Version control using Git}
+\author{Tommy S. Alstrøm \\\\
+Document version 0.1\\\\
+November 16, 2015}
+\date{\vspace{-5ex}}
+
+\begin{document}
+\maketitle
+\section{Introduction}
+This document is a draft that contains condensed information about how to use GIT.
+
+
+\section{Installing git}
+
+
+
+\section{Getting started}
+On DTU compute, we have two git servers. The first runs the clasical 
+
+\begin{lstlisting}
+# git init
+Initialized empty Git repository in <path>
+\end{lstlisting}
+This command creates the .git directory which contains the ``system files'' of git.
+
+Adding files is done with
+\begin{lstlisting}
+# git add
+Initialized empty Git repository in <path>
+\end{lstlisting}
+
+
+\section{Uploading your git repo to a server}
+
+
+\section{Branching}
+
+
+\section{Installing GNU Make on Windows}
+The example depot contains make files. Make is not available on windows out of 
+the box and must be downloaded. It can be fetched here:\\ 
+\url{http://www.mingw.org/wiki/Getting_Started}\\ Download the tool called 
+\texttt{mingw-get-setup.exe} and choose the package called \texttt{msys-base}. 
+This will install the necessary tools in 
+\texttt{C:\textbackslash{}MinGW\textbackslash{}msys\textbackslash{}1.0}. A bash 
+shell can now be started by running 
+\texttt{C:\textbackslash{}MinGW\textbackslash{}msys\textbackslash{} 
+1.0\textbackslash{}msys.bat}. All drives on the computer is automatically 
+mounted in root, so e.g. to access the C-drive type \texttt{cd /c}.
+
+\section{Interesting links}
+Linus (the creator of Git) talks about git and large files:\\
+\url{http://osdir.com/ml/git/2009-05/msg00051.html}
+\end{document}

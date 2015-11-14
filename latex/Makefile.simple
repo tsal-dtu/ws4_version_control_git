@@ -1,0 +1,23 @@
+MAINFILE=reproducibility
+
+all: clean pdf
+
+latex:
+	# Makefile is needed to be Makefile.txt, otherwise latex document
+	# cant build
+	cp Makefile Makefile.advanced
+	latex $(MAINFILE).tex
+	bibtex $(MAINFILE).aux
+	# run latex again to get references right
+	latex $(MAINFILE).tex
+
+ps: latex
+	dvips $(MAINFILE).dvi
+
+pdf: ps
+	ps2pdf $(MAINFILE).ps
+
+clean:
+	-rm -f *.bbl *.aux *.log *.blg *.dvi *.ps *.tex~ *.out
+	-rm Makefile.advanced
+	-rm -f $(MAINFILE).pdf
