@@ -1,4 +1,4 @@
-MAINFILE=reproducibility
+MAINFILE=version_control_git
 PS2PDF=ps2pdf
 DVI2PS=dvips
 
