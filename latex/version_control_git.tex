@@ -50,23 +50,36 @@ This document is a draft that contains condensed information about how to use GI
 
 
 \section{Installing git}
-
-
+Installation instructions depend on your operating system. To download git and get instructions for your specific OS, go to\\
+\url{https://git-scm.com/downloads}\\\\
+For Mac, Linux and Unix, this will install git so it can be used from your terminal. The Windows installer will install a unix like eco-system on your computer, called "git bash". 
+\subsection{For Windows users}
+When installing git, you should choose "Use Git from the Windows command prompt", but otherwise use default settings unless you're an expert user that knows what the other options implicate. Unfortunately, the git bash eco system does not include make, so you will have to install this separately if you want to use Makefiles. This can be done using these steps:
+\begin{enumerate}
+\item Download make from\\\url{http://gnuwin32.sourceforge.net/packages/make.htm}\\Choose the complete package, or use this url as direct download:\\ \url{http://gnuwin32.sourceforge.net/downlinks/make.php}
+\item Install the package
+\item Open a console (cmd.exe)
+\item Go to the git bash directory - e.g.\\\texttt{cd C:\textbackslash{}Users\textbackslash{}tommysl\textbackslash{}AppData\textbackslash{}Local\textbackslash{}Programs\textbackslash{}Git\textbackslash{}usr\textbackslash{}local}
+\item in the console, type\\
+\texttt{mklink /J bin "C:\textbackslash{}Program Files (x86\textbackslash{}GnuWin32\textbackslash{}bin"}
+\end{enumerate}
+If you prefer to have a more complete unix like eco system on your computer, I suggest you look up MSYS2:\\
+\url{https://msys2.github.io/}\\
+This system has a package manager, called Pacman and you can configure this greatly. You will also be able to use git from that system instead of git bash (or you can have both). If you decide to pursue this route, you can read about pacman here:\\
+\url{https://wiki.archlinux.org/index.php/pacman}
 
 \section{Getting started}
-On DTU compute, we have two git servers. The first runs the clasical 
-
+To get started with your first git repository (usually denoted repo), go to a directory that contains the files you want to have under revision and type
 \begin{lstlisting}
 # git init
 Initialized empty Git repository in <path>
 \end{lstlisting}
 This command creates the .git directory which contains the ``system files'' of git.
-
 Adding files is done with
 \begin{lstlisting}
-# git add
-Initialized empty Git repository in <path>
+# git add <filename>
 \end{lstlisting}
+Create a text file with some content, and add it to your git repo.
 
 
 \section{Uploading your git repo to a server}
@@ -75,19 +88,62 @@ Initialized empty Git repository in <path>
 \section{Branching}
 
 
-\section{Installing GNU Make on Windows}
-The example depot contains make files. Make is not available on windows out of 
-the box and must be downloaded. It can be fetched here:\\ 
-\url{http://www.mingw.org/wiki/Getting_Started}\\ Download the tool called 
-\texttt{mingw-get-setup.exe} and choose the package called \texttt{msys-base}. 
-This will install the necessary tools in 
-\texttt{C:\textbackslash{}MinGW\textbackslash{}msys\textbackslash{}1.0}. A bash 
-shell can now be started by running 
-\texttt{C:\textbackslash{}MinGW\textbackslash{}msys\textbackslash{} 
-1.0\textbackslash{}msys.bat}. All drives on the computer is automatically 
-mounted in root, so e.g. to access the C-drive type \texttt{cd /c}.
 
+
+git init
+cd latex
+make clean
+git add .
+
+git status
+
+git config --global user.name "Tommy S. Alstrøm"
+git config --global user.email "tsal@dtu.dk"
+
+check the setting by writing
+git config --global --list
+
+git commit -m "Adding latex"
+
+
+
+Use Git from the Windows command prompt
+Otherwise use default settings.
+
+start the git bash
+
+
+\section{Common pitfalls}
+git config --global option "value" will still work even though the option does not exists
+
+If you've added a file to the staging area, you didn't want to add, use
+git rm --cached FILE
+
+If you committed something that you'd like to undo, use
+git reset --soft HEAD\string^
+ 
+If you want to amend last commit, use
+git commit --amend
+
+If you want to reset a file to last commit
+git reset <file>
+
+\section{Git on DTU Compute}
+On DTU compute, we have three git servers. The first one runs gitolite as access control and has no other dependencies. The second one is the git interface to the Perforce server. And finally, the third one is  
+
+
+\section{Useful options}
+If git complains about line endings, use
+\begin{lstlisting}
+#git config --global core.safecrlf false
+\end{lstlisting}
+ 
+If you want to skip the stage area, use
+\begin{lstlisting}
+# git commit -a 
+\end{lstlisting}
 \section{Interesting links}
+In general, due to the .git folder must be on the local computer, 
 Linus (the creator of Git) talks about git and large files:\\
 \url{http://osdir.com/ml/git/2009-05/msg00051.html}
 \end{document}
