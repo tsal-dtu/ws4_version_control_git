@@ -79,71 +79,118 @@ Adding files is done with
 \begin{lstlisting}
 # git add <filename>
 \end{lstlisting}
-Create a text file with some content, and add it to your git repo.
+Before you're able to commit changes, you need to identify yourself to git. Do this by these commands
+\begin{lstlisting}
+# git config --global user.name "Tommy S. Alstrom"
+# git config --global user.email "tsal@dtu.dk"
+\end{lstlisting}
+And you can always see the values of all global settings by typing
+\begin{lstlisting}
+# git config --global --list 
+user.name=Tommy S. Alstrom
+user.email=tsal@dtu.dk
+\end{lstlisting}
+Now, create a text file with some content, and add it to your git repo. A file in git can have four different states:
+\begin{itemize}
+\item Untracked - files that git does not track.
+\item Unmodified - files that are unchanged compared to last commit.
+\item Modified - files that are modified since last commit.
+\item Staged - files ready to be committed.
+\end{itemize}
+The command
+\begin{lstlisting}
+# git add <file>
+\end{lstlisting}
+updates the state of a file to "staged". The command 
+\begin{lstlisting}
+# git commit -m "commit message"
+\end{lstlisting}
+commits staged files to the repo. The command 
+\begin{lstlisting}
+# git status
+\end{lstlisting}
+will show the current status of the directory, that is, how the directory is different compared to the git repo. The command 
+\begin{lstlisting}
+# git ls-tree -rt master --name-only
+\end{lstlisting}
+will show all files that is currently tracked by git. Now, create some text files, and get comfortable with above commands. Play with changes the status of files and move the status from unmodified -> modified -> staged -> committed. You will also notice that the same file can both modified and staged at the same time. To get help, type \begin{lstlisting}
+# git help <cmd>
+\end{lstlisting}
+for any one git command, and the help will be displayed.
+\section{Diffs}
+To view differences in content of the files a diff tool is used. Git has a build in diff tool, but an external can also be installed. Comparing modified content with staged content use
+\begin{lstlisting}
+# git diff
+\end{lstlisting}
+You can also specify the filename if there is a specific file you're interested in. To see differences of staged file compared to commit - that is - what will be written to the index at next commit, use
+\begin{lstlisting}
+# git diff --staged
+\end{lstlisting}
+To compare the current modified file to the last one committed, use 
+\begin{lstlisting}
+# git diff head
+\end{lstlisting}
 
+These changed can also be seen launching the git-gui. Play around with the diff tool and git-gui to get comfortable with these command and different states.
 
-\section{Uploading your git repo to a server}
+I recommend to install a visual diff tool. I recommend the tool called p4merge, but to get a full list of visual tools that git support, type 
+\begin{lstlisting}
+# git difftool
+This message is displayed because 'diff.tool' is not configured.
+See 'git difftool --tool-help' or 'git help config' for more details.
+'git difftool' will now attempt to use one of the following tools:
+opendiff kdiff3 tkdiff xxdiff meld kompare gvimdiff diffuse diffmerge ecmerge p4merge araxis bc codecompare emerge vimdiff
+\end{lstlisting}
+To use p4merge, download the tool from\\
+\url{https://www.perforce.com/downloads/helix#clients}
+After installing the tool, set git to use this as default
+\begin{lstlisting}
+# git config --global diff.tool "p4merge"
+\end{lstlisting}
+Now you can use \texttt{git difftool} the same way as you used \texttt{git diff} but now the visual tool will be launched instead.
+%\section{Branching}
 
+%\section{Uploading your git repo to a server}
 
-\section{Branching}
-
-
-
-
-git init
-cd latex
-make clean
-git add .
-
-git status
-
-git config --global user.name "Tommy S. Alstrøm"
-git config --global user.email "tsal@dtu.dk"
-
-check the setting by writing
-git config --global --list
-
-git commit -m "Adding latex"
-
-
-
-Use Git from the Windows command prompt
-Otherwise use default settings.
-
-start the git bash
-
-
-\section{Common pitfalls}
-git config --global option "value" will still work even though the option does not exists
-
+\section{Common pitfalls and how to amend}
+git config --global option "value" will still work even though the option does not exists. So if git starts to act weirdly, make sure you haven't misspelled an option.
+\\\\
 If you've added a file to the staging area, you didn't want to add, use
-git rm --cached FILE
-
+\begin{lstlisting}
+# git rm --cached FILE
+\end{lstlisting}
 If you committed something that you'd like to undo, use
-git reset --soft HEAD\string^
- 
+\begin{lstlisting}
+# git reset --soft HEAD\string^
+\end{lstlisting}
 If you want to amend last commit, use
-git commit --amend
-
+\begin{lstlisting}
+# git commit --amend
+\end{lstlisting}
+This command will put your last commit back to the staging area. Beware though, if the staging area already had content, this content will be concatenated to the last commit. E.g. if you amend one file, but have another file in the staging area, the staging area will not contain two files.
+\\\\
 If you want to reset a file to last commit
-git reset <file>
-
-\section{Git on DTU Compute}
-On DTU compute, we have three git servers. The first one runs gitolite as access control and has no other dependencies. The second one is the git interface to the Perforce server. And finally, the third one is  
-
+\begin{lstlisting}
+# git reset <file>
+\end{lstlisting}
+%\section{Git on DTU Compute}
+%On DTU compute, we have three git servers. The first one runs gitolite as access control and has no other dependencies. The second one is the git interface to the Perforce server. This server is called And finally, the third one is  
 
 \section{Useful options}
 If git complains about line endings, use
 \begin{lstlisting}
 #git config --global core.safecrlf false
 \end{lstlisting}
- 
-If you want to skip the stage area, use
+If you want to skip the stage area and commit modified files directly, use
 \begin{lstlisting}
 # git commit -a 
 \end{lstlisting}
-\section{Interesting links}
-In general, due to the .git folder must be on the local computer, 
+\section{Large repos and big files}
+In general, due to the fact that the .git folder must be on the local computer, large git repos (in terms of size) are very cumbersome with git. Git is simply designed for code developing in open-source environments, not for having monster repos and/or large binary files (by large, we mean gigabyte size)
 Linus (the creator of Git) talks about git and large files:\\
 \url{http://osdir.com/ml/git/2009-05/msg00051.html}
+
+The other thing you pay by having complete distributed version control (the .git folder) is that you must always download the entire repo. No selective downloading can be done. This is in part solved by putting websites on top of git repos. These serve as a kind of client.
+
+On DTU compute, these issues are solved by powering git with a perforce server, and this is the very reason we advocate a hybrid system and not a pure git solution.
 \end{document}
