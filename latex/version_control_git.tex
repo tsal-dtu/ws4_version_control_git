@@ -116,7 +116,15 @@ will show the current status of the directory, that is, how the directory is dif
 will show all files that is currently tracked by git. Now, create some text files, and get comfortable with above commands. Play with changes the status of files and move the status from unmodified -> modified -> staged -> committed. You will also notice that the same file can both modified and staged at the same time. To get help, type \begin{lstlisting}
 # git help <cmd>
 \end{lstlisting}
-for any one git command, and the help will be displayed.
+for any one git command, and the help will be displayed. To see what you have committed to the repo use \texttt{git log}. The most common variants of this command are
+\begin{lstlisting}
+# git log
+# git log --stat
+# git log -1
+# git log --since=2.weeks
+\end{lstlisting}
+Remember that these options can be combined.
+
 \section{Diffs}
 To view differences in content of the files a diff tool is used. Git has a build in diff tool, but an external can also be installed. Comparing modified content with staged content use
 \begin{lstlisting}
@@ -148,7 +156,20 @@ After installing the tool, set git to use this as default
 # git config --global diff.tool "p4merge"
 \end{lstlisting}
 Now you can use \texttt{git difftool} the same way as you used \texttt{git diff} but now the visual tool will be launched instead.
-%\section{Branching}
+
+\section{Branching}
+Create a new branch by typing
+\begin{lstlisting}
+# git branch <newbranch>
+\end{lstlisting}
+Switch to a given branch by typing 
+\begin{lstlisting}
+# git checkout <newbranch>
+\end{lstlisting}
+Create a couple of text files and run through the branching example in chapter 3.2 in the text book:
+\\\\
+\url{https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging}
+
 
 %\section{Uploading your git repo to a server}
 
@@ -159,19 +180,19 @@ If you've added a file to the staging area, you didn't want to add, use
 \begin{lstlisting}
 # git rm --cached FILE
 \end{lstlisting}
-If you committed something that you'd like to undo, use
-\begin{lstlisting}
-# git reset --soft HEAD\string^
-\end{lstlisting}
 If you want to amend last commit, use
 \begin{lstlisting}
 # git commit --amend
+\end{lstlisting}
+If you committed something that you'd like to undo, use
+\begin{lstlisting}
+# git reset --soft HEAD\string^
 \end{lstlisting}
 This command will put your last commit back to the staging area. Beware though, if the staging area already had content, this content will be concatenated to the last commit. E.g. if you amend one file, but have another file in the staging area, the staging area will not contain two files.
 \\\\
 If you want to reset a file to last commit
 \begin{lstlisting}
-# git reset <file>
+# git reset -- <file>
 \end{lstlisting}
 %\section{Git on DTU Compute}
 %On DTU compute, we have three git servers. The first one runs gitolite as access control and has no other dependencies. The second one is the git interface to the Perforce server. This server is called And finally, the third one is  
@@ -185,6 +206,11 @@ If you want to skip the stage area and commit modified files directly, use
 \begin{lstlisting}
 # git commit -a 
 \end{lstlisting}
+If you are unfamiliar with vi (the default editor that git uses), you might want to change the editor. On windows, you might want to use notepad instead, do achieve this type 
+\begin{lstlisting}
+git config --global core.editor ”notepad”
+\end{lstlisting}
+
 \section{Large repos and big files}
 In general, due to the fact that the .git folder must be on the local computer, large git repos (in terms of size) are very cumbersome with git. Git is simply designed for code developing in open-source environments, not for having monster repos and/or large binary files (by large, we mean gigabyte size)
 Linus (the creator of Git) talks about git and large files:\\
